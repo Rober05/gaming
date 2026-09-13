@@ -1,0 +1,8 @@
+// @dc:title "Project Vocabulary Bundle"
+// @dc:description "Vocabulary bundle importing and aggregating domain vocabularies for reasoning and disjointness checking."
+vocabulary bundle <http://example.com/project/bundle#> as project_bundle {
+
+  // Domain Vocabulary Inclusion
+  includes <http://example.com/method/vocabulary#>
+
+}

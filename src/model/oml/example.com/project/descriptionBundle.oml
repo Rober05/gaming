@@ -1,0 +1,11 @@
+// @dc:title "Project Description Bundle"
+// @dc:description "Description bundle aggregating instance models and vocabulary bundles for reasoner execution."
+description bundle <http://example.com/project/descriptionBundle#> as desc_bundle {
+
+  // @dc:title "Project Description Bundle"
+  // @dc:description "Description bundle including model descriptions and vocabulary references."
+
+  includes <http://example.com/project/description#>
+  uses <http://example.com/project/bundle#>
+
+}

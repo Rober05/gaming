@@ -1,0 +1,49 @@
+@dc:title "Method Vocabulary"
+@dc:description "Vocabulary defining components, hardware types, and software entities."
+vocabulary <http://example.com/method/vocabulary#> as vocab {
+
+  // Imports
+  extends <http://purl.org/dc/elements/1.1/> as dc
+
+  // Base Concept
+  @dc:title "Component"
+  @dc:description "Abstract base entity for all system components."
+  concept Component
+
+  // Hardware Base
+  @dc:title "Hardware"
+  @dc:description "Base concept representing physical system hardware."
+  concept Hardware < Component
+
+  // Aspect to manage sibling taxonomy
+  @dc:title "Hardware Type"
+  @dc:description "Aspect grouping hardware sub-types."
+  aspect HardwareType
+
+  // Hardware Sub-concepts
+  @dc:title "Console"
+  @dc:description "Physical gaming console system."
+  concept Console < Hardware, HardwareType
+
+  @dc:title "Display"
+  @dc:description "Visual display output device or monitor."
+  concept Display < Hardware, HardwareType
+
+  @dc:title "Peripheral"
+  @dc:description "External input or utility accessory device."
+  concept Peripheral < Hardware, HardwareType
+
+  @dc:title "Storage Device"
+  @dc:description "Media storage unit such as SSDs, HDDs, or memory cards."
+  concept StorageDevice < Hardware, HardwareType
+
+  @dc:title "Network Device"
+  @dc:description "Hardware responsible for local or wide-area network communications."
+  concept NetworkDevice < Hardware, HardwareType
+
+  // Software Concept
+  @dc:title "Software"
+  @dc:description "Software applications and OS elements."
+  concept Software < Component
+
+}

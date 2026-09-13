@@ -1,0 +1,34 @@
+// @dc:title "Project Description"
+// @dc:description "Description containing concrete system instances for hardware and software components."
+description <http://example.com/project/description#> as desc {
+
+  // Imports
+  uses <http://example.com/method/vocabulary#> as vocab
+
+  // Hardware Instances
+  // @dc:title "PlayStation 5"
+  // @dc:description "Physical gaming console hardware instance."
+  instance ps5 : vocab:Console
+
+  // @dc:title "4K Gaming Monitor"
+  // @dc:description "Display output device connected to the console."
+  instance mainDisplay : vocab:Display
+
+  // @dc:title "DualSense Controller"
+  // @dc:description "Wireless gamepad peripheral device."
+  instance controller : vocab:Peripheral
+
+  // @dc:title "External NVMe SSD"
+  // @dc:description "High-speed external storage expansion device."
+  instance externalStorage : vocab:StorageDevice
+
+  // @dc:title "Gigabit Ethernet Switch"
+  // @dc:description "Network device handling local wired connectivity."
+  instance networkSwitch : vocab:NetworkDevice
+
+  // Software Instance
+  // @dc:title "System Software OS"
+  // @dc:description "Core operating system managing console hardware."
+  instance consoleOS : vocab:Software
+
+}
