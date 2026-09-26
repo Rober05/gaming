@@ -13,6 +13,11 @@ project:
 sources:
   - src
 
+# Default CLI arguments per command
+defaults:
+  export: -o build/owl
+  render: -m src -b build/docs
+
 # oml server settings
 # By default the server binds a free port chosen by the OS (the actual port is
 # reported by 'oml list'), so multiple workspaces never collide. Uncomment to

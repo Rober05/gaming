@@ -1,34 +1,194 @@
-// @dc:title "Project Description"
-// @dc:description "Description containing concrete system instances for hardware and software components."
 description <http://example.com/project/description#> as desc {
+    uses <http://example.com/method/vocabulary#> as vocab
+    uses <http://example.com/method/patterns#> as patterns
 
-  // Imports
-  uses <http://example.com/method/vocabulary#> as vocab
+    // 1. ROOT SYSTEM CONTAINER (Level 1 of Recursive Containment)
 
-  // Hardware Instances
-  // @dc:title "PlayStation 5"
-  // @dc:description "Physical gaming console hardware instance."
-  instance ps5 : vocab:Console
+    instance gamingSetup : vocab:Component
 
-  // @dc:title "4K Gaming Monitor"
-  // @dc:description "Display output device connected to the console."
-  instance mainDisplay : vocab:Display
+    // 2. HARDWARE INSTANCES (10 Main Components with Domain Scalars)
 
-  // @dc:title "DualSense Controller"
-  // @dc:description "Wireless gamepad peripheral device."
-  instance controller : vocab:Peripheral
+    instance xbox : vocab:Console [ 
+        vocab:brand "Microsoft Xbox Series X" 
+        vocab:isPowered true 
+        vocab:powerDrawWatts 180
+        vocab:thermalOutputBTU 614
+        vocab:isContainedBy gamingSetup
+    ]
+    
+    instance mainDisplay : vocab:Display [ 
+        vocab:resolution "4K" 
+        vocab:refreshRateHz 120 
+        vocab:isPowered true
+        vocab:powerDrawWatts 100
+        vocab:thermalOutputBTU 341
+        vocab:isContainedBy gamingSetup
+    ]
 
-  // @dc:title "External NVMe SSD"
-  // @dc:description "High-speed external storage expansion device."
-  instance externalStorage : vocab:StorageDevice
+    instance pc : vocab:ComputingDevice [ 
+        vocab:brand "Custom Build PC" 
+        vocab:isPowered true
+        vocab:powerDrawWatts 350
+        vocab:thermalOutputBTU 1194
+        vocab:isContainedBy gamingSetup
+    ]
 
-  // @dc:title "Gigabit Ethernet Switch"
-  // @dc:description "Network device handling local wired connectivity."
-  instance networkSwitch : vocab:NetworkDevice
+    instance nintendoSwitch : vocab:Console [ 
+        vocab:brand "Nintendo Switch" 
+        vocab:isPowered true
+        vocab:powerDrawWatts 18
+        vocab:thermalOutputBTU 61
+        vocab:isContainedBy gamingSetup
+    ]
 
-  // Software Instance
-  // @dc:title "System Software OS"
-  // @dc:description "Core operating system managing console hardware."
-  instance consoleOS : vocab:Software
+    instance monitor1080p : vocab:Display [ 
+        vocab:resolution "1080p" 
+        vocab:refreshRateHz 144 
+        vocab:isPowered true
+        vocab:powerDrawWatts 30
+        vocab:thermalOutputBTU 102
+        vocab:isContainedBy gamingSetup
+    ]
 
+    instance hdmiSwitch : vocab:VideoSwitch [ 
+        vocab:brand "Generic HDMI Switch" 
+        vocab:isPowered true
+        vocab:powerDrawWatts 10
+        vocab:thermalOutputBTU 34
+        vocab:isContainedBy gamingSetup
+    ]
+
+    instance networkSwitch : vocab:NetworkDevice [ 
+        vocab:isPowered true
+        vocab:bandwidthMbps 1000
+        vocab:powerDrawWatts 10
+        vocab:thermalOutputBTU 34
+        vocab:isContainedBy gamingSetup
+    ]
+
+    instance turtleBeachStealth700 : vocab:Peripheral [ 
+        vocab:brand "Turtle Beach Stealth 700" 
+        vocab:isPowered true
+        vocab:isBluetooth true
+        vocab:powerDrawWatts 5
+        vocab:thermalOutputBTU 17
+        vocab:isContainedBy gamingSetup
+    ]
+
+    instance controller : vocab:Peripheral [
+        vocab:brand "Xbox Wireless Controller"
+        vocab:isPowered true
+        vocab:isBluetooth true
+        vocab:powerDrawWatts 2
+        vocab:thermalOutputBTU 7
+        vocab:isContainedBy gamingSetup
+    ]
+
+    instance externalStorage : vocab:StorageDevice [
+        vocab:isPowered true
+        vocab:storageCapacityGB 2000
+        vocab:powerDrawWatts 8
+        vocab:thermalOutputBTU 27
+        vocab:isContainedBy gamingSetup
+    ]
+
+    // 3. SOFTWARE & TRACEABILITY INSTANCES (3-Level Traceability Chain)
+    // Chain: haloInfinite (Game) -> satisfies -> req_bandwidth (Requirement) -> pursues -> homePath (NetworkPath)
+
+    instance consoleOS : vocab:Software [
+        vocab:isContainedBy xbox
+    ]
+
+    instance haloInfinite : vocab:Game [
+        vocab:storageSizeGB 125
+        vocab:isContainedBy xbox
+        vocab:requiresStorage externalStorage
+        vocab:satisfies req_bandwidth
+    ]
+
+    instance req_bandwidth : vocab:Requirement [
+        vocab:pursues homePath
+    ]
+
+    instance homePath : vocab:NetworkPath
+
+    // 4. PORT INSTANCES (Level 3 of Recursive Containment: Port -> Device -> gamingSetup)
+
+    instance xbox_hdmi : vocab:Port [ vocab:isPortOf xbox vocab:isContainedBy xbox ]
+    instance xbox_net  : vocab:Port [ vocab:isPortOf xbox vocab:isContainedBy xbox ]
+    instance xbox_pwr  : vocab:Port [ vocab:isPortOf xbox vocab:isContainedBy xbox ]
+    
+    instance pc_hdmi  : vocab:Port [ vocab:isPortOf pc vocab:isContainedBy pc ]
+    instance pc_dp    : vocab:Port [ vocab:isPortOf pc vocab:isContainedBy pc ]
+    instance pc_net   : vocab:Port [ vocab:isPortOf pc vocab:isContainedBy pc ]
+    instance pc_audio : vocab:Port [ vocab:isPortOf pc vocab:isContainedBy pc ]
+    
+    instance nswitch_hdmi : vocab:Port [ vocab:isPortOf nintendoSwitch vocab:isContainedBy nintendoSwitch ]
+    instance nswitch_net  : vocab:Port [ vocab:isPortOf nintendoSwitch vocab:isContainedBy nintendoSwitch ]
+    
+    instance hdmiSw_in1 : vocab:Port [ vocab:isPortOf hdmiSwitch vocab:isContainedBy hdmiSwitch ]
+    instance hdmiSw_in2 : vocab:Port [ vocab:isPortOf hdmiSwitch vocab:isContainedBy hdmiSwitch ]
+    instance hdmiSw_out : vocab:Port [ vocab:isPortOf hdmiSwitch vocab:isContainedBy hdmiSwitch ]
+    
+    instance mainDisp_port1 : vocab:Port [ vocab:isPortOf mainDisplay vocab:isContainedBy mainDisplay ]
+    instance mainDisp_port2 : vocab:Port [ vocab:isPortOf mainDisplay vocab:isContainedBy mainDisplay ]
+    
+    instance mon1080_port : vocab:Port [ vocab:isPortOf monitor1080p vocab:isContainedBy monitor1080p ]
+    instance headset_port : vocab:Port [ vocab:isPortOf turtleBeachStealth700 vocab:isContainedBy turtleBeachStealth700 ]
+    
+    instance netSw_port1 : vocab:Port [ vocab:isPortOf networkSwitch vocab:isContainedBy networkSwitch ]
+    instance netSw_port2 : vocab:Port [ vocab:isPortOf networkSwitch vocab:isContainedBy networkSwitch ]
+    instance netSw_port3 : vocab:Port [ vocab:isPortOf networkSwitch vocab:isContainedBy networkSwitch ]
+
+    instance controller_port : vocab:Port [ vocab:isPortOf controller vocab:isContainedBy controller ]
+    instance extStorage_port : vocab:Port [ vocab:isPortOf externalStorage vocab:isContainedBy externalStorage ]
+
+    // -------------------------------------------------------------------------
+    // 5. PATTERN INSTANCES (Dogfooding >10 Instances across 4 Patterns)
+    // -------------------------------------------------------------------------
+    // Video Link Pattern Instances
+    relation instance link_xbox_hdmi : patterns:VideoLink [
+        from xbox_hdmi
+        to hdmiSw_in1
+    ]
+    relation instance link_nswitch_hdmi : patterns:VideoLink [
+        from nswitch_hdmi
+        to hdmiSw_in2
+    ]
+    relation instance link_hdmiSw_out : patterns:VideoLink [
+        from hdmiSw_out
+        to mainDisp_port1
+    ]
+    relation instance link_pc_dp : patterns:VideoLink [
+        from pc_dp
+        to mon1080_port
+    ]
+    relation instance link_pc_hdmi : patterns:VideoLink [
+        from pc_hdmi
+        to mainDisp_port2
+    ]
+    
+    // Audio Link Pattern Instances
+    relation instance link_xbox_audio : patterns:AudioLink [
+        from xbox_hdmi
+        to headset_port
+    ]
+    relation instance link_pc_audio : patterns:AudioLink [
+        from pc_audio
+        to headset_port
+    ]
+    
+    // Network Link Pattern Instances
+    relation instance link_xbox_network : patterns:NetworkLink [
+        from xbox_net
+        to netSw_port1
+    ]
+    relation instance link_pc_network : patterns:NetworkLink [
+        from pc_net
+        to netSw_port2
+    ]
+    relation instance link_nswitch_network : patterns:NetworkLink [
+        from nswitch_net
+        to netSw_port3
+    ]
 }

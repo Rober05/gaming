@@ -1,0 +1,15 @@
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix vocab: <http://example.com/method/vocabulary#> .
+
+# Node shape targeting all hardware components in your description
+vocab:ComponentPowerShape
+    a sh:NodeShape ;
+    sh:targetClass vocab:Console, vocab:Display, vocab:ComputingDevice, vocab:VideoSwitch, vocab:Peripheral, vocab:NetworkDevice, vocab:StorageDevice ;
+    sh:property [
+        sh:path vocab:isPowered ;
+        sh:datatype xsd:boolean ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:message "Every component must have exactly one boolean 'isPowered' property." ;
+    ] .

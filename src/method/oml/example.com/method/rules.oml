@@ -1,0 +1,23 @@
+vocabulary <http://example.com/method/rules#> as rules {
+    extends <http://example.com/method/vocabulary#> as vocab
+
+    // Rule 1: Video Routing Inference
+    rule InferVideoRouting [
+        vocab:hasPort(device, p1) &
+        vocab:connectsTo(p1, p2) &
+        vocab:hasPort(display, p2) &
+        vocab:Display(display)
+        ->
+        vocab:routesVideoTo(device, display)
+    ]
+
+    // Rule 2: Audio Routing Inference
+    rule InferAudioRouting [
+        vocab:hasPort(device, p1) &
+        vocab:connectsTo(p1, p2) &
+        vocab:hasPort(headset, p2) &
+        vocab:Peripheral(headset)
+        ->
+        vocab:routesAudioTo(device, headset)
+    ]
+}

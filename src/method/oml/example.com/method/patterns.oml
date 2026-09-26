@@ -1,0 +1,31 @@
+vocabulary <http://example.com/method/patterns#> as patterns {
+    extends <http://example.com/method/vocabulary#> as vocab
+
+    // Pattern 1: Video Connection Link
+    relation entity VideoLink [
+        from vocab:Port to vocab:Port
+        forward connectsVideoTo
+        reverse isVideoConnectedTo
+    ]
+
+    // Pattern 2: Audio Connection Link
+    relation entity AudioLink [
+        from vocab:Port to vocab:Port
+        forward connectsAudioTo
+        reverse isAudioConnectedTo
+    ]
+
+    // Pattern 3: Data Network Link
+    relation entity NetworkLink [
+        from vocab:Port to vocab:Port
+        forward connectsDataTo
+        reverse isDataConnectedTo
+    ]
+
+    // Pattern 4: Power Distribution Link
+    relation entity PowerLink [
+        from vocab:Port to vocab:Port
+        forward suppliesPowerTo
+        reverse receivesPowerFrom
+    ]
+}

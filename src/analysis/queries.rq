@@ -1,0 +1,70 @@
+PREFIX vocab: <http://example.com/method/vocabulary#>
+PREFIX patterns: <http://example.com/method/patterns#>
+PREFIX rdf: <http://www.w3.org/2000/01/rdf-schema#>
+
+# ==============================================================================
+# MODULE 1 QUESTION QUERIES
+# ==============================================================================
+
+# Query Q1 (Player - WiFi Bandwidth Impact)
+SELECT ?device ?port ?networkLink WHERE {
+  ?device vocab:hasPort ?port .
+  ?networkLink a patterns:NetworkLink ;
+               vocab:connectsDataTo ?port .
+}
+
+# Query Q2 (Player - Storage Budget Gap Check)
+SELECT ?game ?storageDevice WHERE {
+  ?game a vocab:Software .
+  OPTIONAL { ?game vocab:installedOn ?storageDevice }
+  FILTER NOT EXISTS { ?game vocab:storageSizeGB ?size }
+}
+
+# Query Q3 (Player - Peripheral Degradation Gap Check)
+SELECT ?peripheral ?audioPort WHERE {
+  ?peripheral a vocab:Peripheral .
+  OPTIONAL { ?peripheral vocab:hasPort ?audioPort }
+  FILTER NOT EXISTS { ?peripheral vocab:hapticChannel ?haptic }
+}
+
+# Query Q4 (Teammates - Shared Network Path & Bottlenecks)
+SELECT ?dev1 ?dev2 ?sharedPort WHERE {
+  ?dev1 vocab:hasPort ?sharedPort .
+  ?dev2 vocab:hasPort ?sharedPort .
+  FILTER(?dev1 != ?dev2)
+}
+
+# Query Q5 (Developers - Power Budget Check)
+SELECT ?device ?isPowered WHERE {
+  ?device a vocab:Component ;
+          vocab:isPowered ?isPowered .
+  FILTER(?isPowered = true)
+}
+
+# ==============================================================================
+# PATTERN GAP DETECTION QUERIES (Absence / Missing Relationships)
+# ==============================================================================
+
+# Gap Detection 1: VideoLink Pattern - Unlinked Video Ports
+SELECT ?unlinkedVideoPort WHERE {
+  ?unlinkedVideoPort a vocab:Port .
+  FILTER NOT EXISTS { ?link a patterns:VideoLink ; vocab:connectsVideoTo ?unlinkedVideoPort }
+}
+
+# Gap Detection 2: AudioLink Pattern - Missing Audio Links
+SELECT ?unlinkedAudioPort WHERE {
+  ?unlinkedAudioPort a vocab:Port .
+  FILTER NOT EXISTS { ?link a patterns:AudioLink ; vocab:connectsAudioTo ?unlinkedAudioPort }
+}
+
+# Gap Detection 3: NetworkLink Pattern - Unconnected Network Ports
+SELECT ?unlinkedNetworkPort WHERE {
+  ?unlinkedNetworkPort a vocab:Port .
+  FILTER NOT EXISTS { ?link a patterns:NetworkLink ; vocab:connectsDataTo ?unlinkedNetworkPort }
+}
+
+# Gap Detection 4: PowerLink Pattern - Unpowered Active Components
+SELECT ?unpoweredComponent WHERE {
+  ?unpoweredComponent a vocab:Component .
+  FILTER NOT EXISTS { ?link a patterns:PowerLink ; vocab:suppliesPowerTo ?unpoweredComponent }
+}
