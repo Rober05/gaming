@@ -4,19 +4,22 @@ oml-code:
 
 # project npm settings
 project:
-  name: "@oml/gaming"
-  version: 0.1.0
+  name: "@gaming/method"
+  version: 1.0.0
   title: Gaming
-  description: The Gaming ontologies.
+  description: Gaming Setup Architectural Modeling Methodology.
+  sources: [src]
 
-# source folders
-sources:
-  - src
+# Packaging boundary & Exclusion rules
+pack:
+  include: ["src/method"]
+  exclude: ["**/*.test.oml"]
 
 # Default CLI arguments per command
 defaults:
   export: -o build/owl
   render: -m src -b build/docs
+  pack: -o build/dist
 
 # oml server settings
 # By default the server binds a free port chosen by the OS (the actual port is

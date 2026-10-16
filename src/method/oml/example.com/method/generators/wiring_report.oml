@@ -1,0 +1,81 @@
+// ONTOLOGY: Wiring Schedule Generator Specification & Template
+// AUTHOR: Gaming Setup Architectural Team
+// PURPOSE: Reusable OML codegen spec and Nunjucks template for generating system interconnection reports (Deliverable 7 Part 1).
+description <http://example.com/method/generators/wiring_report#> as wiring_report {
+    uses <http://opencaesar.io/codegen#> as codegen
+
+    // 1. REUSABLE CODEGEN SPECIFICATION (SPARQL CONSTRUCT)
+    instance WiringReportSpec : codegen:Spec [
+        codegen:construct """
+            PREFIX vocab: <http://example.com/method/vocabulary#>
+            PREFIX patterns: <http://example.com/method/patterns#>
+            PREFIX codegen: <http://opencaesar.io/codegen#>
+            PREFIX wiring_report: <http://example.com/method/generators/wiring_report#>
+            PREFIX oml: <http://opencaesar.io/oml#>
+
+            CONSTRUCT {
+                ?file a codegen:File ;
+                      codegen:path ?filePath ;
+                      codegen:template wiring_report:WiringReportTemplate ;
+                      codegen:root ?link .
+
+                ?link vocab:sourceDevice ?srcDev ;
+                      vocab:sourcePort ?srcPort ;
+                      vocab:connectionType ?linkType ;
+                      vocab:targetPort ?tgtPort ;
+                      vocab:targetDevice ?tgtDev .
+            }
+            WHERE {
+                {
+                    ?srcPort vocab:isPortOf ?srcDev .
+                    ?tgtPort vocab:isPortOf ?tgtDev .
+                    ?srcPort ?linkType ?tgtPort .
+
+                    FILTER (?linkType IN (
+                        patterns:connectsVideoTo,
+                        patterns:connectsAudioTo,
+                        patterns:connectsDataTo,
+                        patterns:suppliesPowerTo,
+                        vocab:connectsTo
+                    ))
+                    BIND(?srcPort AS ?link)
+                }
+                UNION
+                {
+                    ?link a ?linkType ;
+                          oml:hasSource ?srcPort ;
+                          oml:hasTarget ?tgtPort .
+                    ?srcPort vocab:isPortOf ?srcDev .
+                    ?tgtPort vocab:isPortOf ?tgtDev .
+                    FILTER (?linkType IN (
+                        patterns:VideoLink,
+                        patterns:AudioLink,
+                        patterns:DataLink,
+                        patterns:PowerLink
+                    ))
+                }
+
+                BIND(IRI("http://example.com/subsystem/reportFile") AS ?file)
+                BIND(COALESCE(?path, "build/docs/streaming-subsystem-wiring.md") AS ?filePath)
+            }
+        """
+        codegen:parameter "path"
+    ]
+
+    // 2. REUSABLE NUNJUCKS TEXT TEMPLATE
+    instance WiringReportTemplate : codegen:Template [
+        codegen:body """
+# System Interconnect & Wiring Schedule
+
+Generated from model-driven specification `WiringReportSpec`.
+
+| Source Device | Source Port | Connection Link Type | Target Port | Target Device |
+| :--- | :--- | :--- | :--- | :--- |
+{% for item in root %}
+| {{ item.sourceDevice | localName }} | {{ item.sourcePort | localName }} | {{ item.connectionType | localName }} | {{ item.targetPort | localName }} | {{ item.targetDevice | localName }} |
+{% else %}
+| (none) | (none) | (unspecified) | (none) | (none) |
+{% endfor %}
+        """
+    ]
+}
