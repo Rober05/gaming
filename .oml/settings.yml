@@ -18,7 +18,7 @@ pack:
 # Default CLI arguments per command
 defaults:
   export: -o build/owl
-  render: -m src/md -b build/web -c http://example.com/subsystem/subsystem_bundle#
+  render: -m src/model/oml/example.com/project -b build/web -c http://example.com/project/descriptionBundle#
   pack: -o build/dist
 
 # oml server settings
