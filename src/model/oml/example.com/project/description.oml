@@ -8,7 +8,7 @@ description <http://example.com/project/description#> as desc {
 
     // 2. HARDWARE INSTANCES (10 Main Components with Domain Scalars)
 
-    instance xbox : vocab:Console [ 
+    instance xbox : vocab:Console [
         vocab:brand "Microsoft Xbox Series X" 
         vocab:isPowered true 
         vocab:powerDrawWatts 180
@@ -191,4 +191,5 @@ description <http://example.com/project/description#> as desc {
         from nswitch_net
         to netSw_port3
     ]
+
 }

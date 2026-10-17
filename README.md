@@ -43,6 +43,8 @@ The model is structured into reusable methodology layers (`src/method/`) and con
 4. **Description Model (`description.oml`)**: Instantiates all 10 hardware devices, assigns `vocab:isPowered true` properties, establishes port structures (`vocab:isPortOf`), defines hierarchical containment (`vocab:isContainedBy`), and connects devices via link patterns.
 5. **Description Bundle (`descriptionBundle.oml`)**: Aggregates vocabularies and description graphs for reasoner processing.
 
+The dashboard's `table-editor` SHACL block is the validation target used by `oml validate`. The `render` default in `.oml/settings.yml` points to the description bundle model file so its ontology context can be resolved.
+
 ---
 
 ## 3. Project Directory Structure

@@ -1,6 +1,6 @@
 @prefix sh: <http://www.w3.org/ns/shacl#> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
-@prefix vocab: <http://example.com/method/vocabulary#> .
+@prefix vocab: <http://example.com/project/vocabulary#> .
 
 # Node shape targeting all hardware components in your description
 vocab:ComponentPowerShape

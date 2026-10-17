@@ -1,5 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <catalog xmlns="urn:oasis:names:tc:entity:xmlns:xml:catalog">
-    <rewriteURI uriStartString="http://example.com/method/" rewritePrefix="src/method/oml/example.com/method/"/>
-    <rewriteURI uriStartString="http://example.com/project/" rewritePrefix="src/model/oml/example.com/project/"/>
+    <!-- Explicit local overrides -->
+    <rewriteURI uriStartString="http://example.com/project/descriptionBundle#" rewritePrefix="descriptionBundle.oml"/>
+    <rewriteURI uriStartString="http://example.com/project/descriptionBundle" rewritePrefix="descriptionBundle.oml"/>
+
+    <rewriteURI uriStartString="http://example.com/method/" rewritePrefix="../../../../method/oml/example.com/method/"/>
+    <rewriteURI uriStartString="http://example.com/project/" rewritePrefix=""/>
 </catalog>
