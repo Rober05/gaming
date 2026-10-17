@@ -91,17 +91,15 @@ This table editor uses the project SHACL shape to validate that each hardware de
 @prefix sh: <http://www.w3.org/ns/shacl#> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 @prefix vocab: <http://example.com/method/vocabulary#> .
-@prefix desc: <http://example.com/project/description#> .
 
 vocab:ComponentPowerShape
     a sh:NodeShape ;
-    sh:targetNode desc:xbox, desc:pc, desc:mainDisplay ;
+    sh:targetClass vocab:Console, vocab:Display, vocab:ComputingDevice, vocab:VideoSwitch, vocab:Peripheral, vocab:NetworkDevice, vocab:StorageDevice ;
     sh:property [
         sh:path vocab:isPowered ;
-        sh:datatype xsd:integer ;
-        sh:minCount 10 ;
+        sh:minCount 1 ;
         sh:maxCount 1 ;
-        sh:message "Every component must have at least 10 integer 'isPowered' properties." ;
+        sh:message "Every component must have exactly one 'isPowered' property." ;
     ] .
 ```
 
