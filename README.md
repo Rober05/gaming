@@ -4,6 +4,9 @@ ontology: http://example.com/project/descriptionBundle#
 
 # Gaming Setup Architectural Model (OML)
 
+[![Release](https://img.shields.io/github/v/release/Rober05/gaming)](https://github.com/Rober05/gaming/releases/latest)
+[![Live Site](https://img.shields.io/badge/Live-Site-brightgreen)](https://github.com/Rober05/gaming)
+
 An Ontological Modeling Language (OML) project that models, analyzes, and visualizes a 10-device gaming setup architecture. This repository defines component vocabularies, structural containment, port-level connectivity patterns, power allocation states, SWRL inference rules, and interactive markdown dashboard views.
 
 ---
