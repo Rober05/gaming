@@ -8,7 +8,7 @@ description <http://example.com/project/description#> as desc {
 
     // 2. HARDWARE INSTANCES (10 Main Components with Domain Scalars)
 
-    instance xbox : vocab:Console, vocab:Software [ 
+    instance xbox : vocab:Console [
         vocab:brand "Microsoft Xbox Series X" 
         vocab:isPowered true 
         vocab:powerDrawWatts 180
