@@ -83,9 +83,27 @@ WHERE {
 ORDER BY ?Classification ?Device
 ```
 
+## 3. Hardware Power Validation (Table Editor)
 
+This table editor uses the project SHACL shape to validate that each hardware device has one boolean power state.
 
+```table-editor
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix vocab: <http://example.com/method/vocabulary#> .
+@prefix desc: <http://example.com/project/description#> .
 
+vocab:ComponentPowerShape
+    a sh:NodeShape ;
+    sh:targetNode desc:xbox, desc:pc, desc:mainDisplay ;
+    sh:property [
+        sh:path vocab:isPowered ;
+        sh:datatype xsd:integer ;
+        sh:minCount 10 ;
+        sh:maxCount 1 ;
+        sh:message "Every component must have at least 10 integer 'isPowered' properties." ;
+    ] .
+```
 
 <!-- 4. SYSTEM WIRING TOPOLOGY (GRAPH VIEW)-->
 

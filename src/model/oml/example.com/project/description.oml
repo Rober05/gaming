@@ -192,12 +192,4 @@ description <http://example.com/project/description#> as desc {
         to netSw_port3
     ]
 
-
-
-    ref instance streamingRig [
-  vocab:NonExistentProperty "test"
-]
-
-
-
 }
